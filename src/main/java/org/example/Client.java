@@ -1,6 +1,4 @@
 package org.example;
-
-
 public class Client {
 
     private int client_id;
