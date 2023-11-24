@@ -43,35 +43,25 @@ public class Main {
         client = new Client("Jonas", "Jonaitis", "jonas.jonaitis@gmail.com", "2023-11-25", "+37060631938");
         manager.updateRecord("clients", client.getValues(), "client_id = 1");
 
-        Fields[] fields = new Fields[5];
-        fields[0] = new Fields("client_id");
-        fields[1] = new Fields("name");
-        fields[2] = new Fields("surname");
-        fields[3] = new Fields("email");
-        fields[4] = new Fields("registration_date");
-
-        manager.getRecord("clients", fields , "client_id = 1");
+        manager.getRecord("clients", client.getFieldsOnly(), "client_id = 1");
 
         client = new Client("Jozas", "Budraitis", "Jozas.Budraitis@gmail.com", "2023-11-24", "+37060633111");
         manager.createRecord("clients", client.getValues());
 
-        manager.getRecord("clients", fields , "client_id = 2");
+        manager.getRecord("clients", client.getFieldsOnly(), "client_id = 2");
+        manager.getAll("clients", new Client());
 
         manager.deleteRecord("clients", "client_id = 2");
 
-        manager.getAllRecords("clients", fields);
+        manager.getAll("clients", new Client());
 
         manager.deleteRecord("clients", "client_id = 1");
 
-        manager.getAllRecords("clients", fields);
+        manager.getAll("clients", new Client());
     }
 
     private static void createDatabaseClients(DatabaseManager manager) {
-        Map<String, String> columns = Client.getFields();
+        Map<String, String> columns = new Client().getFields();
         manager.createTable("clients", columns);
-    }
-
-    public static String getMessage() {
-        return "Hello World!";
     }
 }

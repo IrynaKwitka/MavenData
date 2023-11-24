@@ -42,4 +42,6 @@ public abstract class DatabaseEngine {
     public abstract void deleteRecord(String tableName, String where);
 
     public abstract void getAllRecords(String tableName, Fields [] fields);
+
+    public abstract void getAll(String tableName, Model model);
 }

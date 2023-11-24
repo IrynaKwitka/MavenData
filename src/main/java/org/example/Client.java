@@ -1,9 +1,10 @@
 package org.example;
 
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Client {
+public class Client implements Model {
 
     private int client_id;
     private String name;
@@ -12,6 +13,8 @@ public class Client {
     private String registration_date;
     private String tel_number;
 
+    public Client() {
+    }
     public Client(String name, String surname, String email, String registration_date, String tel_number) {
         this.name = name;
         this.surname = surname;
@@ -68,7 +71,8 @@ public class Client {
         this.tel_number = tel_number;
     }
 
-    public static Map<String, String> getFields() {
+    @Override
+    public Map<String, String> getFields() {
         Map<String, String> fields = new HashMap<>(6);
         fields.put("client_id", "serial PRIMARY KEY");
         fields.put("name", "varchar(255) DEFAULT NULL");
@@ -78,10 +82,9 @@ public class Client {
         fields.put("registration_date", "date");
         return fields;
     }
-
+    @Override
     public Fields[] getValues() {
-        Fields[] fields;
-        fields = new Fields[5];
+        Fields[] fields = new Fields[5];
         fields[0] = new Fields("name", "String", name);
         fields[1] = new Fields("surname", "String", surname);
         fields[2] = new Fields("email", "String", email);
@@ -89,9 +92,22 @@ public class Client {
         fields[4] = new Fields("registration_date", "String", registration_date);
         return fields;
     }
+
+    @Override
+    public Fields[] getFieldsOnly() {
+        Fields[] fields = new Fields[6];
+        fields[0] = new Fields("client_id");
+        fields[1] = new Fields("name");
+        fields[2] = new Fields("surname");
+        fields[3] = new Fields("email");
+        fields[4] = new Fields("tel_number");
+        fields[5] = new Fields("registration_date");
+        return fields;
+    }
+
     @Override
     public String toString() {
-        return "Client{" +
+        return "Client {" +
                 "client_id=" + client_id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -99,5 +115,20 @@ public class Client {
                 ", registration_date='" + registration_date + '\'' +
                 ", tel_number='" + tel_number + '\'' +
                 '}';
+    }
+
+    @Override
+    public Client addRow(ResultSet rs) {
+        try {
+            client_id = rs.getInt("client_id");
+            name = rs.getString("name");
+            surname = rs.getString("surname");
+            email = rs.getString("email");
+            registration_date = rs.getString("registration_date");
+            tel_number = rs.getString("tel_number");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

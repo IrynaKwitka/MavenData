@@ -162,6 +162,30 @@ public class PostgresEngine extends DatabaseEngine {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void getAll(String tableName, Model model) {
+        String sql = "SELECT * FROM " + tableName + ";" ;
+        System.out.println(sql);
+
+        try(Connection conn = DriverManager.getConnection(url_, username_, password_);
+            Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                Model row = model.addRow(rs);
+                System.out.println(row.toString());
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void deleteRecord(String tableName, String where) {
         String sql = "DELETE FROM " + tableName + " WHERE " + where + ";" ;

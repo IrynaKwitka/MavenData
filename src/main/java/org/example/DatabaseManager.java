@@ -57,4 +57,8 @@ public class DatabaseManager {
         engine_.getAllRecords(tableName, fields);
     }
 
+    public void getAll(String tableName, Model model) {
+        engine_.getAll(tableName, model);
+    }
+
 }
