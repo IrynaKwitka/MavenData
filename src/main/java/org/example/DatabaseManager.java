@@ -41,4 +41,20 @@ public class DatabaseManager {
         engine_.createRecord(tableName, values);
     }
 
+    public void updateRecord(String tableName, Fields[] values, String where) {
+        engine_.updateRecord(tableName, values, where);
+    }
+
+    public void getRecord (String tableName, Fields[] fields, String where) {
+        engine_.getRecord(tableName, fields, where);
+    }
+
+    public void deleteRecord(String tableName, String where) {
+        engine_.deleteRecord(tableName, where);
+    }
+
+    public void getAllRecords(String tableName, Fields [] fields) {
+        engine_.getAllRecords(tableName, fields);
+    }
+
 }

@@ -81,12 +81,12 @@ public class Client {
 
     public Fields[] getValues() {
         Fields[] fields;
-        fields = new Fields[6];
-        fields[1] = new Fields("name", "String", name);
-        fields[2] = new Fields("surname", "String", surname);
-        fields[3] = new Fields("email", "String", email);
-        fields[4] = new Fields("tel_number", "String", tel_number);
-        fields[5] = new Fields("registration_date", "String", registration_date);
+        fields = new Fields[5];
+        fields[0] = new Fields("name", "String", name);
+        fields[1] = new Fields("surname", "String", surname);
+        fields[2] = new Fields("email", "String", email);
+        fields[3] = new Fields("tel_number", "String", tel_number);
+        fields[4] = new Fields("registration_date", "String", registration_date);
         return fields;
     }
     @Override

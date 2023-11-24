@@ -1,5 +1,7 @@
 package org.example;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.*;
 import java.util.Map;
 
@@ -65,7 +67,7 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void createRecord(String tableName, Fields[] values) {
+    public void createRecord(String tableName, Fields @NotNull [] values) {
         String keys = "";
 
         for (Fields value : values) {
@@ -86,9 +88,85 @@ public class PostgresEngine extends DatabaseEngine {
             sql +=  "'" + value.getValue() + "', ";
         }
 
-        sql = sql.substring(0, sql.length() - 3);
+        sql = sql.substring(0, sql.length() - 2);
         sql += ");";
 
+        executeUpdate(sql);
+    }
+
+    @Override
+    public void updateRecord(String tableName, Fields @NotNull [] values, String where) {
+        String sql = "UPDATE " + tableName + " SET ";
+
+        for (Fields value : values) {
+
+            if(value.getType() == "int") {
+                sql += value.getName() + "=" + value.getValue() + ", ";
+                continue;
+            }
+
+            sql += value.getName() + "='" + value.getValue() + "', ";
+        }
+
+        sql = sql.substring(0, sql.length() - 2);
+        sql += " WHERE " + where + ";" ;
+
+        executeUpdate(sql);
+    }
+
+    @Override
+    public void getRecord(String tableName, Fields [] fields, String where) {
+        String sql = "SELECT ";
+
+        for (Fields value : fields) {
+            sql += value.getName() + ", ";
+        }
+
+        sql = sql.substring(0, sql.length() - 2);
+        sql += " FROM " + tableName + " WHERE " + where + ";" ;
+
+        System.out.println(sql);
+
+        try (Connection conn = DriverManager.getConnection(url_, username_, password_);
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                for (Fields value : fields) {
+                    System.out.println(rs.getString(value.getName()));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getAllRecords(String tableName, Fields [] fields) {
+        String sql = "SELECT * FROM " + tableName + ";" ;
+
+        System.out.println(sql);
+
+        try (Connection conn = DriverManager.getConnection(url_, username_, password_);
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                for (Fields value : fields) {
+                    System.out.println(rs.getString(value.getName()));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void deleteRecord(String tableName, String where) {
+        String sql = "DELETE FROM " + tableName + " WHERE " + where + ";" ;
         executeUpdate(sql);
     }
 

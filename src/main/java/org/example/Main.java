@@ -1,6 +1,5 @@
 package org.example;
 
-import java.sql.*;
 import java.util.*;
 
 /**
@@ -32,9 +31,32 @@ public class Main {
         createDatabaseClients(manager);
 
         Client client = new Client("Hello", "World!", "hello@gmail.com", "2023-11-23", "+37060631938");
+        manager.createRecord("clients", client.getValues());
 
-        Fields[] values = client.getValues();
-        manager.createRecord("clients", values);
+        client = new Client("Jonas", "Jonaitis", "jonas.jonaitis@gmail.com", "2023-11-25", "+37060631938");
+        manager.updateRecord("clients", client.getValues(), "client_id = 1");
+
+        Fields[] fields = new Fields[5];
+        fields[0] = new Fields("client_id");
+        fields[1] = new Fields("name");
+        fields[2] = new Fields("surname");
+        fields[3] = new Fields("email");
+        fields[4] = new Fields("registration_date");
+
+        manager.getRecord("clients", fields , "client_id = 1");
+
+        client = new Client("Jozas", "Budraitis", "Jozas.Budraitis@gmail.com", "2023-11-24", "+37060633111");
+        manager.createRecord("clients", client.getValues());
+
+        manager.getRecord("clients", fields , "client_id = 2");
+
+        manager.deleteRecord("clients", "client_id = 2");
+
+        manager.getAllRecords("clients", fields);
+
+        manager.deleteRecord("clients", "client_id = 1");
+
+        manager.getAllRecords("clients", fields);
     }
 
     private static void createDatabaseClients(DatabaseManager manager) {

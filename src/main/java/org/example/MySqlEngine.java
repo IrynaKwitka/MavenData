@@ -1,5 +1,7 @@
 package org.example;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 public class MySqlEngine extends DatabaseEngine{
@@ -48,6 +50,11 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
+    public void getRecord(String tableName, Fields @NotNull [] fields, String where) {
+
+    }
+
+    @Override
     public void createForeignKey(String tableName, String foreignKeyName, String foreignKeyTable, String foreignKeyColumn) {
 
     }
@@ -79,6 +86,21 @@ public class MySqlEngine extends DatabaseEngine{
 
     @Override
     public void createRecord(String tableName, Fields[] values) {
+
+    }
+
+    @Override
+    public void updateRecord(String tableName, Fields[] values, String where) {
+
+    }
+
+    @Override
+    public void deleteRecord(String tableName, String where) {
+
+    }
+
+    @Override
+    public void getAllRecords(String tableName, Fields[] fields) {
 
     }
 }

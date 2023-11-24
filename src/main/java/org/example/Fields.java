@@ -12,6 +12,10 @@ public class Fields {
         this.value = value;
     }
 
+    public Fields(String name) {
+        this.name = name;
+    }
+
     public Fields() {
     }
 
