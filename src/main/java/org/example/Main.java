@@ -20,6 +20,13 @@ public class Main {
 
         DatabaseEngine engine = new PostgresEngine(url_, username_, password_);
         DatabaseManager manager = new DatabaseManager(engine);
+
+        try {
+            manager.dropDatabase(databaseName);
+        } catch (Exception e) {
+            System.out.println("Database does not exist");
+        }
+
         manager.dropDatabase(databaseName);
 
         manager.createNewDatabase(databaseName);
