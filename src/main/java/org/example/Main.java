@@ -1,40 +1,45 @@
 package org.example;
 
 import java.sql.*;
+import java.util.*;
 
 /**
- *
  * @author Your name
  */
 public class Main {
+
+    protected static String url_;
+    protected static String username_;
+    protected static String password_;
+
     public static void main(String... param) {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String username = "postgres";
-        String password = "";
+        url_ = "jdbc:postgresql://localhost:5432/";
+        username_ = "postgres";
+        password_ = "postgres";
 
-        System.out.println("Starting application...");
+        String databaseName = "test";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        DatabaseEngine engine = new PostgresEngine(url_, username_, password_);
+        DatabaseManager manager = new DatabaseManager(engine);
+        manager.dropDatabase(databaseName);
 
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM clients")) {
+        manager.createNewDatabase(databaseName);
 
-            while (rs.next()) {
-                int client_id = rs.getInt("client_id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String email = rs.getString("email");
-                String telNumber = rs.getString("tel_number");
-                String registrationDate = rs.getString("registration_date");
-                Client client = new Client(client_id, name, surname, email, registrationDate, telNumber);
+        String url = url_ + databaseName;
+        engine = new PostgresEngine(url, username_, password_);
+        manager = new DatabaseManager(engine);
 
-                System.out.println(client);
+        createDatabaseClients(manager);
 
-            }
-        } catch (SQLException e) {
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        Client client = new Client("Hello", "World!", "hello@gmail.com", "2023-11-23", "+37060631938");
+
+        Fields[] values = client.getValues();
+        manager.createRecord("clients", values);
+    }
+
+    private static void createDatabaseClients(DatabaseManager manager) {
+        Map<String, String> columns = Client.getFields();
+        manager.createTable("clients", columns);
     }
 
     public static String getMessage() {
