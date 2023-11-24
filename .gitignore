@@ -31,6 +31,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Postgres ###
+postgres-data/
+
 ### VS Code ###
 .vscode/
 

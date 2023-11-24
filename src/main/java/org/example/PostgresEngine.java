@@ -1,7 +1,5 @@
 package org.example;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.sql.*;
 import java.util.Map;
 
@@ -67,7 +65,7 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void createRecord(String tableName, Fields @NotNull [] values) {
+    public void createRecord(String tableName, Fields [] values) {
         String keys = "";
 
         for (Fields value : values) {
@@ -95,7 +93,7 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void updateRecord(String tableName, Fields @NotNull [] values, String where) {
+    public void updateRecord(String tableName, Fields [] values, String where) {
         String sql = "UPDATE " + tableName + " SET ";
 
         for (Fields value : values) {

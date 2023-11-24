@@ -1,7 +1,5 @@
 package org.example;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Map;
 
 public abstract class DatabaseEngine {
@@ -23,7 +21,7 @@ public abstract class DatabaseEngine {
 
     public abstract void dropRow(String tableName, String rowName);
 
-    public abstract void getRecord(String tableName, Fields @NotNull [] fields, String where);
+    public abstract void getRecord(String tableName, Fields [] fields, String where);
 
     public abstract void createForeignKey(String tableName, String foreignKeyName, String foreignKeyTable, String foreignKeyColumn);
 
