@@ -17,7 +17,7 @@ public abstract class DatabaseEngine {
 
     public abstract void dropColumn(String tableName, String columnName);
 
-    public abstract void getRecord(String tableName, Fields [] fields, String where);
+    public abstract void getRecord(Model model, String where);
 
     public abstract void createForeignKey(String tableName, String foreignKeyName, String foreignKeyTable, String foreignKeyColumn);
 
@@ -31,13 +31,11 @@ public abstract class DatabaseEngine {
 
     public abstract void dropIndex(String indexName);
 
-    public abstract void createRecord(String tableName, Model model);
+    public abstract void createRecord(Model model);
 
     public abstract void updateRecord(String tableName, Model model, String where);
 
     public abstract void deleteRecord(String tableName, String where);
 
-    public abstract void getAllRecords(String tableName, Fields [] fields);
-
-    public abstract void getAll(String tableName, Model model);
+    public abstract void getAll(Model model);
 }

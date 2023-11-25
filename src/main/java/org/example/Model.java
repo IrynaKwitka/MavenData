@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.util.Map;
 
 public interface Model {
-    String tableName = "";
+
+    String tableName = null;
+    String getTableName();
+
     Map<String, String> getColumns();
 
     Fields[] getValues();

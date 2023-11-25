@@ -42,35 +42,32 @@ public class Main {
         manager.createTable(new Client());
 
         // CREATE NEW CLIENT RECORD
-        Client client = new Client("Hello", "World!", "hello@gmail.com", "2023-11-23", "+37060631938");
-        manager.createRecord("clients", client);
+        manager.createRecord(new Client("Hello", "World!", "hello@gmail.com", "2023-11-23", "+37060631938"));
 
         // UPDATE CLIENT RECORD
-        client = new Client("Jonas", "Jonaitis", "jonas.jonaitis@gmail.com", "2023-11-25", "+37060631938");
-        manager.updateRecord("clients", client, "client_id = 1");
+        manager.updateRecord("clients", new Client("Jonas", "Jonaitis", "jonas.jonaitis@gmail.com", "2023-11-25", "+37060631938"), "client_id = 1");
 
         // GET CLIENT RECORD
-        manager.getRecord("clients", client.getFieldsOnly(), "client_id = 1");
+        manager.getRecord(new Client(), "client_id = 1");
 
         // CREATE NEW CLIENT RECORD
-        client = new Client("Jozas", "Budraitis", "Jozas.Budraitis@gmail.com", "2023-11-24", "+37060633111");
-        manager.createRecord("clients", client);
+        manager.createRecord(new Client("Jozas", "Budraitis", "Jozas.Budraitis@gmail.com", "2023-11-24", "+37060633111"));
 
         // GET CLIENT RECORD
-        manager.getRecord("clients", client.getFieldsOnly(), "client_id = 2");
+        manager.getRecord(new Client(), "client_id = 2");
 
         // GET ALL CLIENT RECORDS
-        manager.getAll("clients", new Client());
+        manager.getAll(new Client());
 
         // DELETE CLIENT RECORD
         manager.deleteRecord("clients", "client_id = 2");
 
         // GET ALL CLIENT RECORDS
-        manager.getAll("clients", new Client());
+        manager.getAll(new Client());
 
         // DELETE CLIENTS
         manager.deleteRecord("clients", "client_id = 1");
 
-        manager.getAll("clients", new Client());
+        manager.getAll(new Client());
     }
 }

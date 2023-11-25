@@ -9,12 +9,12 @@ public class DatabaseManager {
         engine_ = engine;
     }
 
-    public void createNewDatabase (String databaseName) {
-        engine_.createDatabase (databaseName);
+    public void createNewDatabase(String databaseName) {
+        engine_.createDatabase(databaseName);
     }
 
-    public void dropDatabase (String databaseName) {
-        engine_.dropDatabase (databaseName);
+    public void dropDatabase(String databaseName) {
+        engine_.dropDatabase(databaseName);
     }
 
     public void createTable(Model model) {
@@ -37,28 +37,24 @@ public class DatabaseManager {
         createRecord(tableName, values);
     }
 
-    public void createRecord(String tableName, Model model) {
-        engine_.createRecord(tableName, model);
+    public void createRecord(Model model) {
+        engine_.createRecord(model);
     }
 
     public void updateRecord(String tableName, Model model, String where) {
         engine_.updateRecord(tableName, model, where);
     }
 
-    public void getRecord (String tableName, Fields[] fields, String where) {
-        engine_.getRecord(tableName, fields, where);
+    public void getRecord(Model model, String where) {
+        engine_.getRecord(model, where);
     }
 
     public void deleteRecord(String tableName, String where) {
         engine_.deleteRecord(tableName, where);
     }
 
-    public void getAllRecords(String tableName, Fields [] fields) {
-        engine_.getAllRecords(tableName, fields);
-    }
-
-    public void getAll(String tableName, Model model) {
-        engine_.getAll(tableName, model);
+    public void getAll(Model model) {
+        engine_.getAll(model);
     }
 
 }

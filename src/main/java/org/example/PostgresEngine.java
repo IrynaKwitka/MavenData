@@ -30,7 +30,9 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void createTable(Model model) {
-        String tableName = model.tableName;
+        // GET TABLE NAME
+        String tableName = model.getTableName();
+        // GET TABLE COLUMNS
         Map<String, String> columns = model.getColumns();
 
         String sql = "CREATE TABLE " + tableName + " (";
@@ -58,8 +60,9 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void createRecord(String tableName, Model model) {
+    public void createRecord(Model model) {
         String keys = "";
+        String tableName = model.getTableName();
 
         Fields[] values = model.getValues();
 
@@ -73,12 +76,12 @@ public class PostgresEngine extends DatabaseEngine {
 
         for (Fields value : values) {
 
-            if(value.getType() == "int") {
+            if (value.getType() == "int") {
                 sql += value.getValue() + ", ";
                 continue;
             }
 
-            sql +=  "'" + value.getValue() + "', ";
+            sql += "'" + value.getValue() + "', ";
         }
 
         sql = sql.substring(0, sql.length() - 2);
@@ -89,13 +92,13 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void updateRecord(String tableName, Model model, String where) {
-        Fields [] values = model.getValues();
+        Fields[] values = model.getValues();
 
         String sql = "UPDATE " + tableName + " SET ";
 
         for (Fields value : values) {
 
-            if(value.getType() == "int") {
+            if (value.getType() == "int") {
                 sql += value.getName() + "=" + value.getValue() + ", ";
                 continue;
             }
@@ -104,13 +107,17 @@ public class PostgresEngine extends DatabaseEngine {
         }
 
         sql = sql.substring(0, sql.length() - 2);
-        sql += " WHERE " + where + ";" ;
+        sql += " WHERE " + where + ";";
 
         executeUpdate(sql);
     }
 
     @Override
-    public void getRecord(String tableName, Fields [] fields, String where) {
+    public void getRecord(Model model, String where) {
+
+        String tableName = model.getTableName();
+        Fields[] fields = model.getFieldsOnly();
+
         String sql = "SELECT ";
 
         for (Fields value : fields) {
@@ -118,7 +125,7 @@ public class PostgresEngine extends DatabaseEngine {
         }
 
         sql = sql.substring(0, sql.length() - 2);
-        sql += " FROM " + tableName + " WHERE " + where + ";" ;
+        sql += " FROM " + tableName + " WHERE " + where + ";";
 
         System.out.println(sql);
 
@@ -139,9 +146,9 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void getAllRecords(String tableName, Fields [] fields) {
-        String sql = "SELECT * FROM " + tableName + ";" ;
-
+    public void getAll(Model model) {
+        String tableName = model.getTableName();
+        String sql = "SELECT * FROM " + tableName + ";";
         System.out.println(sql);
 
         try (Connection conn = DriverManager.getConnection(url_, username_, password_);
@@ -149,31 +156,10 @@ public class PostgresEngine extends DatabaseEngine {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                for (Fields value : fields) {
-                    System.out.println(rs.getString(value.getName()));
-                }
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void getAll(String tableName, Model model) {
-        String sql = "SELECT * FROM " + tableName + ";" ;
-        System.out.println(sql);
-
-        try(Connection conn = DriverManager.getConnection(url_, username_, password_);
-            Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while(rs.next()) {
                 Model row = model.addRow(rs);
                 System.out.println(row.toString());
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
 
@@ -185,7 +171,7 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void deleteRecord(String tableName, String where) {
-        String sql = "DELETE FROM " + tableName + " WHERE " + where + ";" ;
+        String sql = "DELETE FROM " + tableName + " WHERE " + where + ";";
         executeUpdate(sql);
     }
 

@@ -38,7 +38,7 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
-    public void getRecord(String tableName, Fields [] fields, String where) {
+    public void getRecord(Model model, String where) {
 
     }
 
@@ -73,7 +73,7 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
-    public void createRecord(String tableName, Model model) {
+    public void createRecord(Model model) {
 
     }
 
@@ -88,12 +88,7 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
-    public void getAllRecords(String tableName, Fields[] fields) {
-
-    }
-
-    @Override
-    public void getAll(String tableName, Model model) {
+    public void getAll(Model model) {
 
     }
 }

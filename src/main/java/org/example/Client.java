@@ -12,8 +12,7 @@ public class Client implements Model {
     private String email;
     private String registration_date;
     private String tel_number;
-
-    public static final String tableName = "clients";
+    public static String tableName = "clients";
 
     public Client() {
     }
@@ -71,6 +70,11 @@ public class Client implements Model {
 
     public void setTel_number(String tel_number) {
         this.tel_number = tel_number;
+    }
+
+    @Override
+    public String getTableName() {
+        return tableName;
     }
 
     @Override
