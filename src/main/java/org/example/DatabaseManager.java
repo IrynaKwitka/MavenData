@@ -53,6 +53,10 @@ public class DatabaseManager {
         engine_.deleteRecord(tableName, where);
     }
 
+    public void getAllRecords(String tableName, Fields [] fields) {
+        engine_.getAllRecords(tableName, fields);
+    }
+
     public void getAll(String tableName, Model model) {
         engine_.getAll(tableName, model);
     }

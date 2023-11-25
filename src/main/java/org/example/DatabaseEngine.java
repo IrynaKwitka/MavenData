@@ -1,6 +1,5 @@
 package org.example;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 public abstract class DatabaseEngine {
@@ -22,7 +21,7 @@ public abstract class DatabaseEngine {
 
     public abstract void dropRow(String tableName, String rowName);
 
-    public abstract void getRecord(String tableName, Fields [] fields, String where) throws SQLException;
+    public abstract void getRecord(String tableName, Fields [] fields, String where);
 
     public abstract void createForeignKey(String tableName, String foreignKeyName, String foreignKeyTable, String foreignKeyColumn);
 
@@ -42,5 +41,7 @@ public abstract class DatabaseEngine {
 
     public abstract void deleteRecord(String tableName, String where);
 
-    public abstract void getAll(String tableName, Model model) throws SQLException;
+    public abstract void getAllRecords(String tableName, Fields [] fields);
+
+    public abstract void getAll(String tableName, Model model);
 }

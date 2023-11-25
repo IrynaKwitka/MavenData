@@ -98,6 +98,11 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
+    public void getAllRecords(String tableName, Fields[] fields) {
+
+    }
+
+    @Override
     public void getAll(String tableName, Model model) {
 
     }
