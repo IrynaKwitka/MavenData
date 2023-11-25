@@ -18,7 +18,7 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
-    public void createTable(String tableName, Map<String, String> columns) {
+    public void createTable(Model model) {
 
     }
 
@@ -34,16 +34,6 @@ public class MySqlEngine extends DatabaseEngine{
 
     @Override
     public void dropColumn(String tableName, String columnName) {
-
-    }
-
-    @Override
-    public void createRow(String tableName, String rowName) {
-
-    }
-
-    @Override
-    public void dropRow(String tableName, String rowName) {
 
     }
 
@@ -83,12 +73,12 @@ public class MySqlEngine extends DatabaseEngine{
     }
 
     @Override
-    public void createRecord(String tableName, Fields[] values) {
+    public void createRecord(String tableName, Model model) {
 
     }
 
     @Override
-    public void updateRecord(String tableName, Fields[] values, String where) {
+    public void updateRecord(String tableName, Model model, String where) {
 
     }
 

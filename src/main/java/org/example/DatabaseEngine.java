@@ -9,17 +9,13 @@ public abstract class DatabaseEngine {
     public abstract void createDatabase (String databaseName);
     public abstract void dropDatabase (String databaseName);
 
-    public abstract void createTable(String tableName, Map<String, String> columns);
+    public abstract void createTable(Model model);
 
     public abstract void dropTable(String tableName);
 
     public abstract void createColumn(String table, String columnName, String columnType);
 
     public abstract void dropColumn(String tableName, String columnName);
-
-    public abstract void createRow(String tableName, String rowName);
-
-    public abstract void dropRow(String tableName, String rowName);
 
     public abstract void getRecord(String tableName, Fields [] fields, String where);
 
@@ -35,9 +31,9 @@ public abstract class DatabaseEngine {
 
     public abstract void dropIndex(String indexName);
 
-    public abstract void createRecord(String tableName, Fields[] values);
+    public abstract void createRecord(String tableName, Model model);
 
-    public abstract void updateRecord(String tableName, Fields[] values, String where);
+    public abstract void updateRecord(String tableName, Model model, String where);
 
     public abstract void deleteRecord(String tableName, String where);
 

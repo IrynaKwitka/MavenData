@@ -13,6 +13,8 @@ public class Client implements Model {
     private String registration_date;
     private String tel_number;
 
+    public static final String tableName = "clients";
+
     public Client() {
     }
     public Client(String name, String surname, String email, String registration_date, String tel_number) {
@@ -72,7 +74,7 @@ public class Client implements Model {
     }
 
     @Override
-    public Map<String, String> getFields() {
+    public Map<String, String> getColumns() {
         Map<String, String> fields = new HashMap<>(6);
         fields.put("client_id", "serial PRIMARY KEY");
         fields.put("name", "varchar(255) DEFAULT NULL");

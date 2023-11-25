@@ -17,8 +17,8 @@ public class DatabaseManager {
         engine_.dropDatabase (databaseName);
     }
 
-    public void createTable(String tableName, Map<String, String> columns) {
-        engine_.createTable(tableName, columns);
+    public void createTable(Model model) {
+        engine_.createTable(model);
     }
 
     public void dropTable(String tableName) {
@@ -33,16 +33,16 @@ public class DatabaseManager {
         engine_.createPrimaryKey(tableName, primaryKeyName);
     }
 
-    public void createRow(String tableName, String rowName) {
-        engine_.createRow(tableName, rowName);
-    }
-
     public void createRecord(String tableName, Fields[] values) {
-        engine_.createRecord(tableName, values);
+        createRecord(tableName, values);
     }
 
-    public void updateRecord(String tableName, Fields[] values, String where) {
-        engine_.updateRecord(tableName, values, where);
+    public void createRecord(String tableName, Model model) {
+        engine_.createRecord(tableName, model);
+    }
+
+    public void updateRecord(String tableName, Model model, String where) {
+        engine_.updateRecord(tableName, model, where);
     }
 
     public void getRecord (String tableName, Fields[] fields, String where) {

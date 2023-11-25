@@ -1,11 +1,11 @@
 package org.example;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.Map;
 
 public interface Model {
-    Map<String, String> getFields();
+    String tableName = "";
+    Map<String, String> getColumns();
 
     Fields[] getValues();
 

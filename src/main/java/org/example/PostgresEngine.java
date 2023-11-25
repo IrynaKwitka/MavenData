@@ -29,7 +29,10 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void createTable(String tableName, Map<String, String> columns) {
+    public void createTable(Model model) {
+        String tableName = model.tableName;
+        Map<String, String> columns = model.getColumns();
+
         String sql = "CREATE TABLE " + tableName + " (";
         for (Map.Entry<String, String> entry : columns.entrySet()) {
             sql += entry.getKey() + " " + entry.getValue() + ", ";
@@ -55,18 +58,10 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void createRow(String tableName, String rowName) {
-
-    }
-
-    @Override
-    public void dropRow(String tableName, String rowName) {
-
-    }
-
-    @Override
-    public void createRecord(String tableName, Fields [] values) {
+    public void createRecord(String tableName, Model model) {
         String keys = "";
+
+        Fields[] values = model.getValues();
 
         for (Fields value : values) {
             keys += value.getName() + ", ";
@@ -93,7 +88,9 @@ public class PostgresEngine extends DatabaseEngine {
     }
 
     @Override
-    public void updateRecord(String tableName, Fields [] values, String where) {
+    public void updateRecord(String tableName, Model model, String where) {
+        Fields [] values = model.getValues();
+
         String sql = "UPDATE " + tableName + " SET ";
 
         for (Fields value : values) {
