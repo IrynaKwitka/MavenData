@@ -1,13 +1,21 @@
 package org.example;
 
-public class Product {
+import java.sql.ResultSet;
+import java.util.Map;
+
+public class Product implements Model {
     private int product_id;
     private String product_name;
     private String product_description;
     private float product_price;
     private int product_quantity;
 
-    public Product(int product_id, String product_name, float product_price, int product_quantity,String product_description) {
+    public static String tableName = "products";
+
+    public Product() {
+    }
+
+    public Product(int product_id, String product_name, float product_price, int product_quantity, String product_description) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;
@@ -55,8 +63,50 @@ public class Product {
         this.product_quantity = product_quantity;
     }
 
+    /**
+     * @return
+     */
+    @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Map<String, String> getColumns() {
+
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Fields[] getValues() {
+        return new Fields[0];
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Fields[] getFieldsOnly() {
+        return new Fields[0];
+    }
+
     @Override
     public String toString() {
         return "Product {" + "product_id=" + product_id + ", product_name=" + product_name + ", product_description=" + product_description + ", product_price=" + product_price + ", product_quantity=" + product_quantity + '}';
+    }
+
+    /**
+     * @param rs
+     * @return
+     */
+    @Override
+    public Model addRow(ResultSet rs) {
+        return null;
     }
 }

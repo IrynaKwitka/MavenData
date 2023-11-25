@@ -6,16 +6,18 @@ import java.util.*;
  * @author Your name
  */
 public class Main {
-
+    // DATABASE CONNECTION PARAMETERS
     protected static String url_;
     protected static String username_;
     protected static String password_;
 
     public static void main(String... param) {
+        // SET DATABASE CONNECTION PARAMETERS
         url_ = "jdbc:postgresql://localhost:5432/";
         username_ = "postgres";
         password_ = "postgres";
 
+        // SET DATABASE NAME
         String databaseName = "test";
 
         // SELECT ENGINE
@@ -42,7 +44,8 @@ public class Main {
         manager.createTable(new Client());
 
         // CREATE NEW CLIENT RECORD
-        manager.createRecord(new Client("Hello", "World!", "hello@gmail.com", "2023-11-23", "+37060631938"));
+        Client client1 = new Client("Jonas", "Jonaitis", "jonaitis@com.com", "2023-11-25", "+37060631938");
+        manager.createRecord(client1);
 
         // UPDATE CLIENT RECORD
         manager.updateRecord("clients", new Client("Jonas", "Jonaitis", "jonas.jonaitis@gmail.com", "2023-11-25", "+37060631938"), "client_id = 1");
@@ -69,5 +72,7 @@ public class Main {
         manager.deleteRecord("clients", "client_id = 1");
 
         manager.getAll(new Client());
+
+        manager.createTable(new Product());
     }
 }

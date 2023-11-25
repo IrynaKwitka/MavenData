@@ -36,9 +36,11 @@ public class PostgresEngine extends DatabaseEngine {
         Map<String, String> columns = model.getColumns();
 
         String sql = "CREATE TABLE " + tableName + " (";
+
         for (Map.Entry<String, String> entry : columns.entrySet()) {
             sql += entry.getKey() + " " + entry.getValue() + ", ";
         }
+
         sql = sql.substring(0, sql.length() - 2);
         sql += ");";
         executeUpdate(sql);
@@ -72,7 +74,7 @@ public class PostgresEngine extends DatabaseEngine {
 
         keys = keys.substring(0, keys.length() - 2);
 
-        String sql = "INSERT INTO " + tableName + "(" + keys + ") VALUES (";
+        String sql = "INSERT INTO " + tableName + " (" + keys + ") VALUES (";
 
         for (Fields value : values) {
 

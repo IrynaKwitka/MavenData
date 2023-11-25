@@ -5,6 +5,7 @@ import java.util.Map;
 
 public interface Model {
 
+    //TABLE NAME
     String tableName = null;
     String getTableName();
 

@@ -3,7 +3,6 @@ package org.example;
 public class Fields {
     private String name;
     private String type;
-
     private String value;
 
     public Fields(String name, String type, String value) {
