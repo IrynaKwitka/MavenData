@@ -33,7 +33,7 @@ public class Main {
         // CREATE DATABASE
         manager.createNewDatabase(databaseName);
 
-        // USE DATABASE
+        // USE CREATED DATABASE
         String url = url_ + databaseName;
         engine = new PostgresEngine(url, username_, password_);
         manager = new DatabaseManager(engine);
