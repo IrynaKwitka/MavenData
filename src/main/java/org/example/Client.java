@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Client implements Model {
-
     private int client_id;
     private String name;
     private String surname;

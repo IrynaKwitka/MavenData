@@ -1,22 +1,27 @@
 package org.example;
 
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Order {
+public class Order implements Model {
         private int order_id;
         private int client_id;
-        private Date data;
+        private String date;
         private float price;
         private int order_quantity;
 
-        public Order (int order_id, int client_id, Date data, float price,int order_quantity) {
-            this.order_id = order_id;
-            this.client_id = client_id;
-            this.data = data;
-            this.price = price;
-            this.order_quantity = order_quantity;
-        }
-
+    public static String tableName = "orders";
+    public Order() {
+    }
+    public Order (int order_id, int client_id, String date, float price, int order_quantity) {
+        this.order_id = order_id;
+        this.client_id = client_id;
+        this.date = date;
+        this.price = price;
+        this.order_quantity = order_quantity;
+    }
     public int getOrder_id() {
         return order_id;
     }
@@ -33,12 +38,12 @@ public class Order {
         this.client_id = client_id;
     }
 
-    public Date getData() {
-        return data;
+    public String getDate() {
+        return date;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setData(String data) {
+        this.date = data;
     }
 
     public float getPrice() {
@@ -58,7 +63,69 @@ public class Order {
     }
 
     @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
+    public Map<String, String> getColumns() {
+        Map<String, String> fields = new HashMap<>(5);
+        fields.put("order_id", "serial PRIMARY KEY");
+        fields.put("client_id", "varchar(255) DEFAULT NULL");
+        fields.put("date", "date DEFAULT NULL");
+        fields.put("price", "float DEFAULT NULL");
+        fields.put("order_quantity", "int DEFAULT NULL");
+        return fields;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Fields[] getValues() {
+        Fields[] fields = new Fields[5];
+        fields[0] = new Fields("order_id", "String", order_id);
+        fields[1] = new Fields("client_id", "String", client_id);
+        fields[2] = new Fields("date", "Date", String.valueOf(date)); /// Why?
+        fields[3] = new Fields("price", "String", price);
+        fields[4] = new Fields("order_quantity", "String", order_quantity);
+        return fields;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Fields[] getFieldsOnly() {
+        Fields[] fields = new Fields[5];
+        fields[0] = new Fields("order_id");
+        fields[1] = new Fields("client_id");
+        fields[2] = new Fields("date");
+        fields[3] = new Fields("tel_number");
+        fields[4] = new Fields("registration_date");
+        return fields;
+    }
+
+    @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", client_id=" + client_id + ", data=" + data + ", price=" + price + ", order_quantity=" + order_quantity + '}';
+        return "Order{" + "order_id=" + order_id + ", client_id=" + client_id + ", date=" + date + ", price=" + price + ", order_quantity=" + order_quantity + '}';
+    }
+
+    /**
+     * @param rs
+     * @return
+     */
+    @Override
+    public Model addRow(ResultSet rs) {
+        try {
+            order_id = rs.getInt("order_id");
+            client_id = Integer.parseInt(rs.getString("client_id"));
+            date = rs.getString("date");
+            price = Float.parseFloat(rs.getString("price"));
+            order_quantity = Integer.parseInt(rs.getString("order_quantity"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

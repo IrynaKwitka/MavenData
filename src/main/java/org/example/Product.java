@@ -1,6 +1,8 @@
 package org.example;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Product implements Model {
@@ -14,7 +16,6 @@ public class Product implements Model {
 
     public Product() {
     }
-
     public Product(int product_id, String product_name, float product_price, int product_quantity, String product_description) {
         this.product_id = product_id;
         this.product_name = product_name;
@@ -22,7 +23,6 @@ public class Product implements Model {
         this.product_quantity = product_quantity;
         this.product_description = product_description;
     }
-
     public int getProduct_id() {
         return product_id;
     }
@@ -76,16 +76,25 @@ public class Product implements Model {
      */
     @Override
     public Map<String, String> getColumns() {
-
-        return null;
+        Map<String, String> fields = new HashMap<>(5);
+        fields.put("product_id", "serial PRIMARY KEY");
+        fields.put("product_name", "varchar(255) DEFAULT NULL");
+        fields.put("product_description", "varchar(255) DEFAULT NULL");
+        fields.put("product_price", "float DEFAULT NULL");
+        fields.put("product_quantity", "int DEFAULT NULL");
+        return fields;
     }
-
     /**
      * @return
      */
     @Override
     public Fields[] getValues() {
-        return new Fields[0];
+        Fields[] fields = new Fields[4];
+        fields[0] = new Fields("product_name", "String", product_name);
+        fields[1] = new Fields("product_description", "String", product_description);
+        fields[2] = new Fields("product_price", "float", product_price);
+        fields[3] = new Fields("product_quantity", "int", product_quantity);
+        return fields;
     }
 
     /**
@@ -93,7 +102,13 @@ public class Product implements Model {
      */
     @Override
     public Fields[] getFieldsOnly() {
-        return new Fields[0];
+        Fields[] fields = new Fields[5];
+        fields[0] = new Fields("product_id");
+        fields[1] = new Fields("product_name");
+        fields[2] = new Fields("product_description");
+        fields[3] = new Fields("product_price");
+        fields[4] = new Fields("product_quantity");
+        return fields;
     }
 
     @Override
@@ -107,6 +122,16 @@ public class Product implements Model {
      */
     @Override
     public Model addRow(ResultSet rs) {
-        return null;
+        try {
+            product_id = rs.getInt("product_id");
+            product_name = rs.getString("product_name");
+            product_description = rs.getString("product_description");
+            product_price = rs.getFloat("product_price");
+            product_quantity = rs.getInt("product_quantity");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

@@ -15,9 +15,8 @@ public class Fields {
         this.name = name;
     }
 
-    public Fields() {
+    public Fields(String productPrice, String aFloat, float product_price) {
     }
-
     public String getName() {
         return name;
     }
