@@ -16,8 +16,7 @@ public class Product implements Model {
 
     public Product() {
     }
-    public Product(int product_id, String product_name, float product_price, int product_quantity, String product_description) {
-        this.product_id = product_id;
+    public Product(String product_name, float product_price, int product_quantity, String product_description) {
         this.product_name = product_name;
         this.product_price = product_price;
         this.product_quantity = product_quantity;
@@ -92,8 +91,8 @@ public class Product implements Model {
         Fields[] fields = new Fields[4];
         fields[0] = new Fields("product_name", "String", product_name);
         fields[1] = new Fields("product_description", "String", product_description);
-        fields[2] = new Fields("product_price", "float", product_price);
-        fields[3] = new Fields("product_quantity", "int", product_quantity);
+        fields[2] = new Fields("product_price", "float", String.valueOf(product_price));
+        fields[3] = new Fields("product_quantity", "int", String.valueOf(product_quantity));
         return fields;
     }
 

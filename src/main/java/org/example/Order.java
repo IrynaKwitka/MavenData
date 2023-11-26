@@ -15,8 +15,7 @@ public class Order implements Model {
     public static String tableName = "orders";
     public Order() {
     }
-    public Order (int order_id, int client_id, String date, float price, int order_quantity) {
-        this.order_id = order_id;
+    public Order (int client_id, String date, float price, int order_quantity) {
         this.client_id = client_id;
         this.date = date;
         this.price = price;
@@ -71,7 +70,7 @@ public class Order implements Model {
     public Map<String, String> getColumns() {
         Map<String, String> fields = new HashMap<>(5);
         fields.put("order_id", "serial PRIMARY KEY");
-        fields.put("client_id", "varchar(255) DEFAULT NULL");
+        fields.put("client_id", "int REFERENCES clients(client_id)");
         fields.put("date", "date DEFAULT NULL");
         fields.put("price", "float DEFAULT NULL");
         fields.put("order_quantity", "int DEFAULT NULL");
@@ -83,12 +82,11 @@ public class Order implements Model {
      */
     @Override
     public Fields[] getValues() {
-        Fields[] fields = new Fields[5];
-        fields[0] = new Fields("order_id", "String", order_id);
-        fields[1] = new Fields("client_id", "String", client_id);
-        fields[2] = new Fields("date", "Date", String.valueOf(date)); /// Why?
-        fields[3] = new Fields("price", "String", price);
-        fields[4] = new Fields("order_quantity", "String", order_quantity);
+        Fields[] fields = new Fields[4];
+        fields[0] = new Fields("client_id", "String", String.valueOf(client_id));
+        fields[1] = new Fields("date", "Date", String.valueOf(date));
+        fields[2] = new Fields("price", "float", String.valueOf (price));
+        fields[3] = new Fields("order_quantity", "int", String.valueOf (order_quantity));
         return fields;
     }
 
@@ -101,8 +99,8 @@ public class Order implements Model {
         fields[0] = new Fields("order_id");
         fields[1] = new Fields("client_id");
         fields[2] = new Fields("date");
-        fields[3] = new Fields("tel_number");
-        fields[4] = new Fields("registration_date");
+        fields[3] = new Fields("price");
+        fields[4] = new Fields("order_quantity");
         return fields;
     }
 

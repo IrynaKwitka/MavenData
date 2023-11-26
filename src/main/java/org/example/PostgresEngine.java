@@ -78,7 +78,7 @@ public class PostgresEngine extends DatabaseEngine {
 
         for (Fields value : values) {
 
-            if (value.getType() == "int") {
+            if (value.getType() == "int" || value.getType() == "float" || value.getType() == "double") {
                 sql += value.getValue() + ", ";
                 continue;
             }
@@ -100,7 +100,7 @@ public class PostgresEngine extends DatabaseEngine {
 
         for (Fields value : values) {
 
-            if (value.getType() == "int") {
+            if (value.getType() == "int" || value.getType() == "float" || value.getType() == "double") {
                 sql += value.getName() + "=" + value.getValue() + ", ";
                 continue;
             }
