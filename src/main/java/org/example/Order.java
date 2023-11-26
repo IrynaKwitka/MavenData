@@ -70,7 +70,7 @@ public class Order implements Model {
     public Map<String, String> getColumns() {
         Map<String, String> fields = new HashMap<>(5);
         fields.put("order_id", "serial PRIMARY KEY");
-        fields.put("client_id", "int REFERENCES clients(client_id)");
+        fields.put("client_id", "int REFERENCES clients(client_id) ON DELETE SET NULL ON UPDATE CASCADE");
         fields.put("date", "date DEFAULT NULL");
         fields.put("price", "float DEFAULT NULL");
         fields.put("order_quantity", "int DEFAULT NULL");

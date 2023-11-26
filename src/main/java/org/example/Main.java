@@ -113,16 +113,16 @@ public class Main {
         manager.createRecord(new Order(3, "2023-11-25", 1.99f, 100));
 
         // CREATE NEW ORDER RECORD
-        manager.createRecord(new Order(4, "2023-11-25", 2.99f, 100));
+        manager.createRecord(new Order(4, "2023-11-25", 2.99f, 50));
 
         // CREATE NEW ORDER RECORD
-        manager.createRecord(new Order(5, "2023-11-25", 3.99f, 100));
+        manager.createRecord(new Order(5, "2023-11-25", 3.99f, 35));
 
         // GET ALL ORDER RECORDS
         manager.getAll(new Order());
 
         // UPDATE ORDER RECORD
-        manager.updateRecord("orders", new Order(1, "2023-11-25", 1.99f, 100), "order_id = 1");
+        manager.updateRecord("orders", new Order(3, "2023-11-25", 1.99f, 100), "order_id = 1");
 
         // GET ORDER RECORD
         manager.getRecord(new Order(), "order_id = 1");
