@@ -116,18 +116,18 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void getRecord(Model model, String where) {
-
-        String tableName = model.getTableName();
         Fields[] fields = model.getFieldsOnly();
 
-        String sql = "SELECT ";
-
+        String fieldsString = "";
         for (Fields value : fields) {
-            sql += value.getName() + ", ";
+            fieldsString += value.getName() + ", ";
         }
 
-        sql = sql.substring(0, sql.length() - 2);
-        sql += " FROM " + tableName + " WHERE " + where + ";";
+        QueryBuilder queryBuilder = new QueryBuilder();
+        queryBuilder.select(fieldsString.substring(0, fieldsString.length() - 2));
+        queryBuilder.from(model.getTableName());
+        queryBuilder.where(where);
+        String sql = queryBuilder.build();
 
         System.out.println(sql);
 
