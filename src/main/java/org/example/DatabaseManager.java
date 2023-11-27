@@ -57,4 +57,8 @@ public class DatabaseManager {
         engine_.getAll(model);
     }
 
+    public void executeQuery(String query) {
+        engine_.executeQuery(query);
+    }
+
 }

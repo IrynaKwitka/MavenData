@@ -38,4 +38,6 @@ public abstract class DatabaseEngine {
     public abstract void deleteRecord(String tableName, String where);
 
     public abstract void getAll(Model model);
+
+    public abstract void executeQuery(String query);
 }

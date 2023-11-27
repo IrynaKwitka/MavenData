@@ -91,4 +91,9 @@ public class MySqlEngine extends DatabaseEngine{
     public void getAll(Model model) {
 
     }
+
+    @Override
+    public void executeQuery(String query) {
+
+    }
 }

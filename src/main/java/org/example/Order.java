@@ -105,6 +105,11 @@ public class Order implements Model {
     }
 
     @Override
+    public String getSelectString() {
+        return "order_id, client_id, date, price, order_quantity";
+    }
+
+    @Override
     public String toString() {
         return "Order{" + "order_id=" + order_id + ", client_id=" + client_id + ", date=" + date + ", price=" + price + ", order_quantity=" + order_quantity + '}';
     }

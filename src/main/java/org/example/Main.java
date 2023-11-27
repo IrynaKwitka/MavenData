@@ -127,6 +127,10 @@ public class Main {
         // GET ORDER RECORD
         manager.getRecord(new Order(), "order_id = 1");
 
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.select("client_id", "name").from("clients").where("client_id = 3").build();
+        manager.executeQuery(query);
+
         // DELETE ORDER RECORD
         manager.deleteRecord("orders", "order_id = 1");
 

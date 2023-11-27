@@ -111,6 +111,11 @@ public class Client implements Model {
     }
 
     @Override
+    public String getSelectString() {
+        return "client_id, name, surname, email, tel_number, registration_date";
+    }
+
+    @Override
     public String toString() {
         return "Client {" +
                 "client_id=" + client_id +

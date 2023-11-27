@@ -7,6 +7,9 @@ public interface Model {
 
     //TABLE NAME
     String tableName = null;
+
+    String selectString = null;
+
     String getTableName();
 
     Map<String, String> getColumns();
@@ -14,6 +17,8 @@ public interface Model {
     Fields[] getValues();
 
     Fields[] getFieldsOnly();
+
+    String getSelectString();
 
     @Override
     String toString();

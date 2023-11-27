@@ -111,6 +111,11 @@ public class Product implements Model {
     }
 
     @Override
+    public String getSelectString() {
+        return "product_id, product_name, product_description, product_price, product_quantity";
+    }
+
+    @Override
     public String toString() {
         return "Product {" + "product_id=" + product_id + ", product_name=" + product_name + ", product_description=" + product_description + ", product_price=" + product_price + ", product_quantity=" + product_quantity + '}';
     }

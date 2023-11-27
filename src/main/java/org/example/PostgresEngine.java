@@ -2,6 +2,9 @@ package org.example;
 
 import java.sql.*;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PostgresEngine extends DatabaseEngine {
 
@@ -116,15 +119,9 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void getRecord(Model model, String where) {
-        Fields[] fields = model.getFieldsOnly();
-
-        String fieldsString = "";
-        for (Fields value : fields) {
-            fieldsString += value.getName() + ", ";
-        }
 
         QueryBuilder queryBuilder = new QueryBuilder();
-        queryBuilder.select(fieldsString.substring(0, fieldsString.length() - 2));
+        queryBuilder.select(model.getSelectString());
         queryBuilder.from(model.getTableName());
         queryBuilder.where(where);
         String sql = queryBuilder.build();
@@ -136,7 +133,7 @@ public class PostgresEngine extends DatabaseEngine {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                for (Fields value : fields) {
+                for (Fields value : model.getFieldsOnly()) {
                     System.out.println(rs.getString(value.getName()));
                 }
             }
@@ -206,6 +203,41 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void dropIndex(String indexName) {
+
+    }
+
+    @Override
+    public void executeQuery(String query) {
+
+        System.out.println(query);
+
+        try (Connection conn = DriverManager.getConnection(url_, username_, password_);
+            Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+
+            List<Map<String, Object>> list = null;
+            if (rs != null) {
+                list = new ArrayList<Map<String, Object>>();
+                try {
+                    ResultSetMetaData rsMetaData = rs.getMetaData();
+                    int columnCount = rsMetaData.getColumnCount();
+                    while (rs.next()) {
+                        Map<String, Object> row = new HashMap<String, Object>(columnCount);
+                        for (int i = 1; i <= columnCount; i++) {
+                            row.put(rsMetaData.getColumnName(i), rs.getObject(i));
+                        }
+                        list.add(row);
+                        System.out.println(row.toString());
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
 
     }
 
