@@ -73,7 +73,7 @@ public class QueryBuilder {
 
         public static void main(String[] args) {
             QueryBuilder queryBuilder = new QueryBuilder();
-            String query = queryBuilder.select("id", "name").from("users").where("id = 1").build();
+            String query = queryBuilder.select("id", "name").from("clients").where("id = 1").build();
             System.out.println(query);
         }
 }
