@@ -131,6 +131,12 @@ public class Main {
         String query = queryBuilder.select("client_id", "name").from("clients").where("client_id = 3").build();
         manager.executeQuery(query);
 
+        queryBuilder.reset();
+        query = queryBuilder.select("client_id", "name").from("clients").where("client_id > 2").and("name like 'Petr%'").build();
+
+        System.out.println(query);
+        manager.executeQuery(query);
+
         // DELETE ORDER RECORD
         manager.deleteRecord("orders", "order_id = 1");
 

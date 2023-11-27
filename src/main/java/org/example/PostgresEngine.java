@@ -208,9 +208,6 @@ public class PostgresEngine extends DatabaseEngine {
 
     @Override
     public void executeQuery(String query) {
-
-        System.out.println(query);
-
         try (Connection conn = DriverManager.getConnection(url_, username_, password_);
             Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
